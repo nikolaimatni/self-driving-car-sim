@@ -1,0 +1,62 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityStandardAssets.Utility;
+
+ public class MyWaypointConnector : MonoBehaviour {
+
+     //private WaypointCircuit circuit;
+     private float update = 0.0f; 
+     private Transform[] Waypoints;
+     private Vector3[] waypoints;
+     public LineRenderer lineRenderer;
+     public GameObject track_point;
+     
+     
+     void Start() {
+         
+	  GameObject waypointObject = GameObject.Find("Waypoints");
+
+	 var wps = waypointObject.transform;
+
+	 circuit = waypointObject.GetComponentInParent<WaypointCircuit>();
+	 waypoints = circuit.points;
+
+	 var children = new Transform[circuit.transform.childCount];
+	 int n = 0;
+	 foreach (Transform child in circuit.transform)
+	 {
+	     children[n++] = child;
+	 }
+	
+
+	 waypoints = new Vector3[Waypoints.Length];
+	 
+	 for (int i = 0; i < Waypoints.Length; i++)
+	 {
+	     waypoints[i] = Waypoints[i].position;
+	     //Debug.Log("My function is seeing these wayoints");
+	     //Debug.Log(waypoints[i]);
+	     //Debug.Log(Waypoints[i]);
+	     //Debug.Log("------------------------------");
+	 }
+
+	 
+	 
+         lineRenderer = track_point.GetComponentInParent<LineRenderer> ();
+//	 lineRenderer.SetPositions(Waypoints);
+	 lineRenderer.SetWidth ((float).5, (float).5);
+     }
+    
+     void Update() {
+	   update += Time.deltaTime;
+        if (update > 0.0f)
+        {
+            update = 0.0f;
+          //  Debug.Log("Update");
+        }
+//	lineRenderer.SetVertexCount(waypoints.Length);
+//	lineRenderer.SetPositions(Waypoints);
+	lineRenderer.SetWidth ((float).5, (float).5);
+     }
+ }
